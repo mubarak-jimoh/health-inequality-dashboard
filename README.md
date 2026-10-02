@@ -1,10 +1,10 @@
 # Health Inequality Dashboard
 
-[![CI](https://github.com/Mubarakjk/health-inequality-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/Mubarakjk/health-inequality-dashboard/actions/workflows/ci.yml)
+[![CI](https://github.com/mubarak-jimoh/health-inequality-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/mubarak-jimoh/health-inequality-dashboard/actions/workflows/ci.yml)
 
 A dashboard that shows how much where you live, and who you are, changes your health in Medway and Kent.
 
-**Live site:** https://mubarakjk.github.io/health-inequality-dashboard/
+**Live site:** https://mubarak-jimoh.github.io/health-inequality-dashboard/
 
 ![The dashboard overview](docs/screenshot.jpg)
 
@@ -48,7 +48,7 @@ src/
 You need Node.js 20 or newer.
 
 ```bash
-git clone https://github.com/Mubarakjk/health-inequality-dashboard.git
+git clone https://github.com/mubarak-jimoh/health-inequality-dashboard.git
 cd health-inequality-dashboard
 npm install
 npm run dev
