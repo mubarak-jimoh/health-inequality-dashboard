@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
 
-import { education, gap, lifeExpectancy, longTermIllness, sources } from "./data"
+import { datasets, education, gap, lifeExpectancy, longTermIllness, sources, toCsv } from "./data"
 
 describe("gap", () => {
   it("is the difference between the highest and lowest value", () => {
@@ -34,3 +34,27 @@ describe("data", () => {
     }
   })
 })
+
+describe("toCsv", () => {
+  it("writes a header and one row per bar", () => {
+    const lines = toCsv(datasets).trim().split("\n")
+    expect(lines[0]).toBe("measure,group,value,unit")
+    expect(lines).toHaveLength(1 + 6)
+    expect(lines[1]).toBe("Life expectancy for men (Medway),Cuxton,83.5,years")
+  })
+
+  it("quotes values that contain a comma", () => {
+    const csv = toCsv(datasets)
+    expect(csv).toContain('"Gypsy, Roma and Traveller",42,%')
+  })
+
+  it("escapes quotes inside a value", () => {
+    const csv = toCsv([{ measure: 'The "gap"', unit: "%", bars: [{ label: "A", value: 1, highlight: false }] }])
+    expect(csv).toContain('"The ""gap""",A,1,%')
+  })
+
+  it("ends with a newline so the last row is complete", () => {
+    expect(toCsv(datasets).endsWith("\n")).toBe(true)
+  })
+})
+

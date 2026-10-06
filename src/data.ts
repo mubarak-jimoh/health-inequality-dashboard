@@ -75,3 +75,33 @@ export function gap(bars: Bar[]): number {
   const values = bars.map((bar) => bar.value)
   return Math.round((Math.max(...values) - Math.min(...values)) * 10) / 10
 }
+
+export type Dataset = {
+  measure: string
+  unit: string
+  bars: Bar[]
+}
+
+/** Every chart on the page, in one list, so it can be exported. */
+export const datasets: Dataset[] = [
+  { measure: "Life expectancy for men (Medway)", unit: "years", bars: lifeExpectancy },
+  { measure: "Pupils meeting the expected Key Stage 2 standard", unit: "%", bars: education },
+  { measure: "People with a long-term condition", unit: "%", bars: longTermIllness }
+]
+
+/** Wrap a value in quotes if it contains a comma, quote or line break. */
+function csvCell(value: string | number): string {
+  const text = String(value)
+  return /[",\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text
+}
+
+/** Turn the datasets into CSV text that opens in Excel or Google Sheets. */
+export function toCsv(sets: Dataset[]): string {
+  const rows = [["measure", "group", "value", "unit"]]
+  for (const set of sets) {
+    for (const bar of set.bars) {
+      rows.push([set.measure, bar.label, String(bar.value), set.unit])
+    }
+  }
+  return rows.map((row) => row.map(csvCell).join(",")).join("\n") + "\n"
+}
