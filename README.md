@@ -41,6 +41,7 @@ src/
 - **Headline numbers are calculated.** The "10.1 years" on the page is worked out from the data by a `gap` function, so it can never disagree with the chart beneath it.
 - **One chart component.** All three charts use `GapChart`. Each takes a title, the data, a unit and a headline.
 - **Charts work for screen readers.** A chart is only a picture to a screen reader, so each one has a hidden table with the same data.
+- **The data can be downloaded.** A button exports every figure as a CSV file, built in the browser from the same data the charts use.
 - **Every figure has a source.** The Sources section links to the report or dataset behind each chart.
 
 ## Run it locally
