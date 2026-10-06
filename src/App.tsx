@@ -8,8 +8,21 @@ import {
   lifeExpectancy,
   longTermIllness,
   priorityAreas,
-  sources
+  sources,
+  datasets,
+  toCsv
 } from "./data"
+
+// Build the CSV in the browser and hand it to the user as a file download
+function downloadCsv() {
+  const blob = new Blob([toCsv(datasets)], { type: "text/csv" })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement("a")
+  link.href = url
+  link.download = "health-inequality-data.csv"
+  link.click()
+  URL.revokeObjectURL(url)
+}
 
 const sections = [
   { id: "overview", title: "Overview" },
@@ -182,6 +195,14 @@ function App() {
         {/* SOURCES */}
 
         <Section id="sources" title="Sources">
+
+          <button
+            type="button"
+            onClick={downloadCsv}
+            className="mb-6 px-5 py-3 rounded-lg bg-slate-900 text-white font-semibold hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          >
+            Download the data (CSV)
+          </button>
 
           <ul className="list-disc pl-6 space-y-2 text-gray-700">
             {sources.map((source) => (
